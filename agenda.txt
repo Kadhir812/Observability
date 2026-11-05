@@ -1,1 +1,42 @@
-now clearly i have two vm(azure standard d3 v4 windows accesed via bastion like it shows the windows ui not ssh and interact with ip address) in that one vm has applications  (one dedicated centralized UI for listing all the projects like for example: compass app will have its own card in that card start,stop button will be present. if we click start button application will be open likewise for other applications.some are ai applications with neo4j database.the thing is in second vm i need to use for completely for infra. now i want to set observability using prometheus,grafana in second vm and how communcation works and what changes i need to do in 1st vm.since it is organization azure vm it has lot of iam permissions.my task is to sync vm 1 applications with infra vm 2(collect the metrics via prometheus and visualize the data) thats it and follow basic application logics like simply closing the application accidentally does stop the data scarpping. only when i stop the application via clicking stop button it should stop and mulitple applications can run in same time can collect metrics and visulaize likewise basic human logics.in future with in small and easy steps i can able to add the new application and connect with vm2 to have observability for that application and i dont have access to fancy tools i have lot of constraints but check for the mandatory things required to achieve like permissions kind of.all application is not gonna run continuously.dont do spelling mistakes
+## Ready-to-use prompt
+
+I have two Azure Standard D3 v4 Windows virtual machines, both accessed through Azure Bastion with a Windows desktop interface rather than SSH:
+
+- **VM1 – Application VM:** Hosts multiple applications and a centralized UI that lists each project as a card. Each card has **Start** and **Stop** buttons. Some applications are AI applications that use Neo4j.
+- **VM2 – Infrastructure VM:** Reserved for infrastructure and observability tools.
+
+I want to deploy **Prometheus and Grafana on VM2** to collect and visualize metrics from all applications running on VM1.
+
+Please design a practical, secure, and low-cost observability architecture that explains:
+
+1. How VM1 and VM2 should communicate within Azure.
+2. Which Prometheus exporters, agents, or application instrumentation are required on VM1.
+3. What changes are needed in the applications, centralized UI, Windows configuration, Azure networking, NSGs, firewalls, and IAM/RBAC permissions.
+4. How Prometheus on VM2 will discover and scrape multiple applications on VM1.
+5. How Grafana on VM2 will visualize infrastructure, application, and Neo4j metrics.
+6. How to handle applications that start and stop dynamically:
+   - Multiple applications may run at the same time.
+   - An application should be scraped while it is running.
+   - Accidentally closing an application should not disable its monitoring configuration permanently.
+   - Scraping should stop only when the user explicitly clicks the application’s **Stop** button.
+   - Stopped applications should appear as stopped or unavailable rather than causing misleading data.
+7. A simple, repeatable process for adding a new application later and connecting it to VM2 observability.
+8. The minimum mandatory requirements and permissions, considering that these are organization-managed Azure VMs with existing IAM restrictions.
+9. A step-by-step implementation and testing plan suitable for a Windows environment accessed through Bastion.
+10. A later hardening phase covering private networking, least-privilege access, authentication, encryption, and avoiding unnecessary public exposure. Do not let optional hardening requirements block the initial working setup.
+
+Please clearly separate:
+
+- Required components
+- Optional components
+- Azure configuration
+- VM1 configuration
+- VM2 configuration
+- Application changes
+- Centralized UI changes
+- Prometheus configuration
+- Grafana configuration
+- Security considerations
+- Validation and troubleshooting steps
+
+Use simple, accurate language and include example configurations where useful. Start with the minimum required setup and make it work first; then describe improvements that can be added later. Avoid recommending expensive or fancy tools unless they are mandatory. All applications will not run continuously, so the design must support dynamic application availability without losing historical metrics or creating misleading dashboards.
